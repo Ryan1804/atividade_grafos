@@ -60,4 +60,22 @@ class Graph:
                     pred[u] = v
         
         return D, pred
-        
+    
+    def print_caminho(self, s, t):
+        D, pred = self.bfs(s)
+
+        if(D[t] == -1):                                 #verificando se há caminho entre os vertices
+            print("não há caminho entre os vértices")
+            return
+
+        caminho = []
+        passo = t                                       #comecando pela vertice final                                       
+
+        while(passo != -1):                             #achando o caminho da vertice final para a inicial
+            caminho.append(passo)
+            passo = pred[passo]
+
+        caminho.reverse()                               #caminho agora da vertice inicial para a final
+
+        print("Caminho:", caminho)
+

@@ -29,4 +29,4 @@ g = load_from("pcv4.txt")
 g.print()
 n = g.num_comp()
 print("Número de Componentes: " + str(n))
-    
+g.print_caminho(0, 3)
