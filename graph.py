@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import queue
+from collections import deque
 
 class Graph:
     def __init__(self, n):
@@ -22,24 +23,26 @@ class Graph:
                 num += 1
         return num
     
-    def dfs(self):
+    def dfs(self, source):
         pred = [-1 for _ in range(self.num_vertices)]
         visitados = [False for _ in range(self.num_vertices)]
-        for v in range(self.num_vertices):
-            if(visitados[v] == False):
-                self.dfs_rec(v, visitados, pred)
+        pilha = deque()             #criando a pilha para a dfs
+
+        pilha.append(source)
+        visitados[source] = True    #vertice fonte para a dfs é adicionado a pilha e marcado como visitado
+
+        while(len(pilha) != 0):     
+            v = pilha.pop()         #enquanto a pilha nao estiver vazia remove o primeiro vertice e vai
+                                    #até um vertice terminal a partir do vertice removido da pilha
+                                    #adicionando a pilha os vertices nao buscados
+            for u in self.L[v]:
+                if(visitados[u] == False):
+                  pilha.append(u)
+                  visitados[u] = True
+                  pred[u] = v
                 
         return pred
         
-        
-    def dfs_rec(self, v, visitados, pred):
-        print("Vertice: " + str(v))
-        visitados[v] = True
-        for u in self.L[v]:
-            if(visitados[u] == False):
-                pred[u] = v
-                self.dfs_rec(u, visitados, pred)
-    
     def bfs(self, source):
         visitados = [False for _ in range(self.num_vertices)]
         pred = [-1 for _ in range(self.num_vertices)]
