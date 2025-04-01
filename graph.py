@@ -23,23 +23,24 @@ class Graph:
                 num += 1
         return num
     
-    def dfs(self, source):
+    def dfs(self):
         pred = [-1 for _ in range(self.num_vertices)]
         visitados = [False for _ in range(self.num_vertices)]
-        pilha = deque()             #criando a pilha para a dfs
+        pilha = deque()                     #criando a pilha para a dfs
 
-        pilha.append(source)
-        visitados[source] = True    #vertice fonte para a dfs é adicionado a pilha e marcado como visitado
+        for v in range(self.num_vertices):  #itera sobre todos os vertices do grafo
+            if(visitados[v] == False):      #se um vertice nao foi visitado e empilhado e marcado como visitado
+                pilha.append(v)
+                visitados[v] = True
 
-        while(len(pilha) != 0):     
-            v = pilha.pop()         #enquanto a pilha nao estiver vazia remove o primeiro vertice e vai
-                                    #até um vertice terminal a partir do vertice removido da pilha
-                                    #adicionando a pilha os vertices nao buscados
-            for u in self.L[v]:
-                if(visitados[u] == False):
-                  pilha.append(u)
-                  visitados[u] = True
-                  pred[u] = v
+            while pilha:     
+                u = pilha.pop()             #executa busca no vertice topo da pilha, empilhando seus adjacentes
+                                            #para que sejam buscados e guarda seus predecessores
+                for vizinho in self.L[u]:
+                    if(visitados[vizinho] == False):
+                        pilha.append(vizinho)
+                        visitados[vizinho] = True
+                        pred[vizinho] = u
                 
         return pred
         

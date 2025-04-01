@@ -25,8 +25,10 @@ def load_from(fileName):
     
     return g
 
-g = load_from("pcv4.txt")
+g = load_from("pcv177.txt")
 g.print()
 n = g.num_comp()
 print("Número de Componentes: " + str(n))
 g.print_caminho(0, 3)
+pred = g.dfs()
+print(pred)
